@@ -32,16 +32,16 @@ export const columns: ColumnDef<Task>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "rollingno", // Update column to display rollingno
+    accessorKey: "rollingno",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Rolling Number" />
     ),
-    cell: ({ row }) => <div className="w-[120px]">{row.getValue("rollingno")}</div>, // Display rollingno in cell
+    cell: ({ row }) => <div className="w-[120px]">{row.getValue("rollingno")}</div>,
     enableSorting: true,
     enableHiding: true,
   },
   {
-    accessorKey: "FullName", // Update column to display fullname
+    accessorKey: "FullName",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Full Name" />
     ),

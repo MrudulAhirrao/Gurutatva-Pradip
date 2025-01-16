@@ -11,6 +11,7 @@ const fileSchema = z
     "Only JPEG, PNG, and WebP files are allowed."
   );
 export const taskSchema = z.object({
+  id: z.string(),
   rollingno: z.string(),
   FullName: z.string(),
   Address: z.string(),
