@@ -9,15 +9,29 @@ import { supabase } from "@/lib/supabase";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
-// Define a type for the user data
 interface User {
   FullName: string;
+  Address: string;
+  Mobno: string;
+  EMobno: string;
+  Age: number;
+  Gender: string;
+  Email: string;
+  Username: string;
+  Password: string;
+  ProfilePicture: string;
+  Aadhaar: string;
+  BloodGrp: string;
+  disease: string;
+  rollingno: string;
+  type: string;
 }
 
 export default function ViewData() {
   const searchParams = useSearchParams();
-  const id = searchParams.get("id"); 
-  const [user, setUser] = useState<User | null>(null); // Use the User type
+  const id = searchParams.get("id");
+  const [user, setUser] = useState<User | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -29,35 +43,44 @@ export default function ViewData() {
           .single();
 
         if (error) {
+          setError("Failed to fetch user data.");
           console.error("Error fetching user data:", error);
         } else {
-          console.log("Fetched user data:", data);
-          setUser(data as User); // Explicitly cast data to the User type
+          setUser(data as User);
         }
       } catch (err) {
+        setError("Unexpected error occurred.");
         console.error("Unexpected error:", err);
       }
     };
 
-    if (id) fetchUser(); // Only fetch if ID is present
+    if (id) fetchUser();
   }, [id]);
 
   const handlePrintData = () => {
-    const element = document.getElementById("printable-content"); // ID of the content to print
+    const element = document.getElementById("printable-content");
 
     if (element) {
       html2canvas(element).then((canvas) => {
-        const imgData = canvas.toDataURL("image/png"); // Convert content to image
-        const pdf = new jsPDF("p", "mm", "a4"); // Create a new PDF
+        const imgData = canvas.toDataURL("image/png");
+        const pdf = new jsPDF("p", "mm", "a4");
 
-        const imgWidth = 210; // A4 width in mm
-        const imgHeight = (canvas.height * imgWidth) / canvas.width; // Calculate height to maintain aspect ratio
+        const imgWidth = 210;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-        pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight); // Add image to PDF
-        pdf.save("profile-data.pdf"); // Save the PDF
+        pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+        pdf.save("profile-data.pdf");
       });
     }
   };
+
+  if (error) {
+    return <p>{error}</p>;
+  }
+
+  if (!id) {
+    return <p>No user ID provided in the URL.</p>;
+  }
 
   return (
     <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
@@ -65,7 +88,7 @@ export default function ViewData() {
         <div>
           <h2 className="text-2xl font-bold tracking-tight">Welcome back!</h2>
           <p className="text-muted-foreground">
-            Here is a user {user?.FullName ?? "unknown"} data.
+            Here is user {user?.FullName ?? "unknown"}'s data.
           </p>
         </div>
         <div className="flex items-center space-x-2">
@@ -73,9 +96,8 @@ export default function ViewData() {
         </div>
       </div>
       <Separator />
-      {/* Add an ID to the content you want to print */}
       <div id="printable-content">
-        <ProfileView />
+        <ProfileView user={user} />
       </div>
     </div>
   );
