@@ -35,10 +35,10 @@ interface ProfileViewProps {
 }
 
 
-export default function ProfileView({ user }: ProfileViewProps) {
+export default function ProfileView({ }: ProfileViewProps) {
   const searchParams = useSearchParams();
   const id = searchParams.get("id"); // Get the 'id' query parameter
-  const [fetchedUser, setFetchedUser] = useState<User | null>(null); // Use User type
+  const [users, setusers] = useState<User | null>(null); // Use User type
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -54,7 +54,7 @@ export default function ProfileView({ user }: ProfileViewProps) {
           console.error("Error fetching user data:", error);
         } else {
           console.log("Fetched user data:", data); // Log the whole user object
-          setFetchedUser(data as User); // Explicitly cast data to User type
+          setusers(data as User); // Explicitly cast data to User type
         }
       }
     };
@@ -62,7 +62,7 @@ export default function ProfileView({ user }: ProfileViewProps) {
     fetchUserData();
   }, [id]);
 
-  if (!fetchedUser) {
+  if (!users) {
     return <div>Loading...</div>;
   }
 
@@ -79,7 +79,7 @@ export default function ProfileView({ user }: ProfileViewProps) {
                 <CardTitle>Rolling Number</CardTitle>
               </CardHeader>
               <CardContent>
-                <CardDescription>{fetchedUser.rollingno}</CardDescription>
+                <CardDescription>{users.rollingno}</CardDescription>
               </CardContent>
             </Card>
           </div>
@@ -89,7 +89,7 @@ export default function ProfileView({ user }: ProfileViewProps) {
                 <CardTitle>Full Name</CardTitle>
               </CardHeader>
               <CardContent>
-                <CardDescription>{fetchedUser.FullName}</CardDescription>
+                <CardDescription>{users.FullName}</CardDescription>
               </CardContent>
             </Card>
           </div>
@@ -99,7 +99,7 @@ export default function ProfileView({ user }: ProfileViewProps) {
                 <CardTitle>Address</CardTitle>
               </CardHeader>
               <CardContent>
-                <CardDescription>{fetchedUser.Address}</CardDescription>
+                <CardDescription>{users.Address}</CardDescription>
               </CardContent>
             </Card>
           </div>
@@ -113,7 +113,7 @@ export default function ProfileView({ user }: ProfileViewProps) {
                 <CardTitle>Mobile Number</CardTitle>
               </CardHeader>
               <CardContent>
-                <CardDescription>{fetchedUser.Mobno}</CardDescription>
+                <CardDescription>{users.Mobno}</CardDescription>
               </CardContent>
             </Card>
           </div>
@@ -123,7 +123,7 @@ export default function ProfileView({ user }: ProfileViewProps) {
                 <CardTitle>Emergency Mobile Number</CardTitle>
               </CardHeader>
               <CardContent>
-                <CardDescription>{fetchedUser.EMobno}</CardDescription>
+                <CardDescription>{users.EMobno}</CardDescription>
               </CardContent>
             </Card>
           </div>
@@ -133,7 +133,7 @@ export default function ProfileView({ user }: ProfileViewProps) {
                 <CardTitle>Age</CardTitle>
               </CardHeader>
               <CardContent>
-                <CardDescription>{fetchedUser.Age}</CardDescription>
+                <CardDescription>{users.Age}</CardDescription>
               </CardContent>
             </Card>
           </div>
@@ -143,7 +143,7 @@ export default function ProfileView({ user }: ProfileViewProps) {
                 <CardTitle>Aadhaar Number</CardTitle>
               </CardHeader>
               <CardContent>
-                <CardDescription>{fetchedUser.Aadhaar}</CardDescription>
+                <CardDescription>{users.Aadhaar}</CardDescription>
               </CardContent>
             </Card>
           </div>
@@ -153,7 +153,7 @@ export default function ProfileView({ user }: ProfileViewProps) {
                 <CardTitle>Gender</CardTitle>
               </CardHeader>
               <CardContent>
-                <CardDescription>{fetchedUser.Gender}</CardDescription>
+                <CardDescription>{users.Gender}</CardDescription>
               </CardContent>
             </Card>
           </div>
@@ -163,7 +163,7 @@ export default function ProfileView({ user }: ProfileViewProps) {
                 <CardTitle>Blood Group</CardTitle>
               </CardHeader>
               <CardContent>
-                <CardDescription>{fetchedUser.BloodGrp}</CardDescription>
+                <CardDescription>{users.BloodGrp}</CardDescription>
               </CardContent>
             </Card>
           </div>
@@ -173,7 +173,7 @@ export default function ProfileView({ user }: ProfileViewProps) {
                 <CardTitle>Disease</CardTitle>
               </CardHeader>
               <CardContent>
-                <CardDescription>{fetchedUser.disease}</CardDescription>
+                <CardDescription>{users.disease}</CardDescription>
               </CardContent>
             </Card>
           </div>
@@ -183,7 +183,7 @@ export default function ProfileView({ user }: ProfileViewProps) {
                 <CardTitle>Stay</CardTitle>
               </CardHeader>
               <CardContent>
-                <CardDescription>{fetchedUser.items?.join(", ")}</CardDescription>
+                <CardDescription>{users.items?.join(", ")}</CardDescription>
               </CardContent>
             </Card>
           </div>
@@ -193,7 +193,7 @@ export default function ProfileView({ user }: ProfileViewProps) {
                 <CardTitle>Category</CardTitle>
               </CardHeader>
               <CardContent>
-                <CardDescription>{fetchedUser.type}</CardDescription>
+                <CardDescription>{users.type}</CardDescription>
               </CardContent>
             </Card>
           </div>

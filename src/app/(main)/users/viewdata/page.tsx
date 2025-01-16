@@ -88,7 +88,7 @@ export default function ViewData() {
         <div>
           <h2 className="text-2xl font-bold tracking-tight">Welcome back!</h2>
           <p className="text-muted-foreground">
-            Here is user {user?.FullName ?? "unknown"}'s data.
+            Here is user {user?.FullName ?? "unknown"}&rsquo;s data.
           </p>
         </div>
         <div className="flex items-center space-x-2">
