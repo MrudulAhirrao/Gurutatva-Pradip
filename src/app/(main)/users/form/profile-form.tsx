@@ -143,7 +143,7 @@ export function Profileform() {
     const { data, error } = await supabase.storage
       .from('images')
       .upload(`${folder}/${file.name}`, file);
-
+      console.log(data);
     if (error) {
       console.error(`Error uploading file to ${folder}:`, error);
       return null;
@@ -157,6 +157,9 @@ export function Profileform() {
     try {
       const profileImageUrl = data.profileImage ? await uploadFile(data.profileImage, 'profileimages') : null;
       const aadhaarImageUrl = data.aadhaarImage ? await uploadFile(data.aadhaarImage, 'aadhaarimages') : null;
+
+      console.log(profileImageUrl);
+      console.log(aadhaarImageUrl);
 
       const userData: UserFormValues = {
         rollingno: data.rollingno,
