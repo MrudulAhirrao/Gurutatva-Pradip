@@ -6,7 +6,7 @@ import ProfileView from "./profile";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { supabase } from "@/lib/supabase";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
 interface User {
@@ -27,7 +27,8 @@ interface User {
   type: string;
 }
 
-export default function ViewData() {
+// Separate component for the content that uses useSearchParams
+function ViewDataContent() {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const [user, setUser] = useState<User | null>(null);
@@ -38,7 +39,7 @@ export default function ViewData() {
       try {
         const { data, error } = await supabase
           .from("users")
-          .select("FullName")
+          .select("*")  // Changed to select all fields
           .eq("id", id)
           .single();
 
@@ -100,5 +101,14 @@ export default function ViewData() {
         <ProfileView user={user} />
       </div>
     </div>
+  );
+}
+
+// Main component with Suspense boundary
+export default function ViewData() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ViewDataContent />
+    </Suspense>
   );
 }
