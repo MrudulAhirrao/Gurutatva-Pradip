@@ -139,24 +139,24 @@ export function Profileform() {
     },
   });
 
-  // const uploadFile = async (file: File, folder: string) => {
-  //   const { data, error } = await supabase.storage
-  //     .from('images')
-  //     .upload(`${folder}/${file.name}`, file);
+  const uploadFile = async (file: File, folder: string) => {
+    const { data, error } = await supabase.storage
+      .from('images')
+      .upload(`${folder}/${file.name}`, file);
 
-  //   if (error) {
-  //     console.error(`Error uploading file to ${folder}:`, error);
-  //     return null;
-  //   }
+    if (error) {
+      console.error(`Error uploading file to ${folder}:`, error);
+      return null;
+    }
 
-  //   const fileUrl = `https://your-supabase-url/storage/v1/object/public/images/${folder}/${file.name}`;
-  //   return fileUrl;
-  // };
+    const fileUrl = `https://your-supabase-url/storage/v1/object/public/images/${folder}/${file.name}`;
+    return fileUrl;
+  };
 
   const addUser  = async (data: UserFormValues) => {
     try {
-      // const profileImageUrl = data.profileImage ? await uploadFile(data.profileImage, 'profileimages') : null;
-      // const aadhaarImageUrl = data.aadhaarImage ? await uploadFile(data.aadhaarImage, 'aadhaarimages') : null;
+      const profileImageUrl = data.profileImage ? await uploadFile(data.profileImage, 'profileimages') : null;
+      const aadhaarImageUrl = data.aadhaarImage ? await uploadFile(data.aadhaarImage, 'aadhaarimages') : null;
 
       const userData: UserFormValues = {
         rollingno: data.rollingno,
