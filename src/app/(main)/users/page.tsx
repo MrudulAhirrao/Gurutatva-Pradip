@@ -7,9 +7,10 @@ import { columns } from "./components/columns";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
+import { Task } from "./data/schema";
 
 export default function User() {
-  const [profiles, setProfiles] = useState<any[]>([]);
+  const [profiles, setProfiles] = useState<Task[]>([]);
 
   // Fetch users from Supabase
   const fetchProfiles = async () => {
